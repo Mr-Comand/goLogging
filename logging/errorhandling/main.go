@@ -4,7 +4,7 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 
-	"github.com/Mr-Comand/logging/logging"
+	"github.com/Mr-Comand/goLogging/logging"
 )
 
 type ErrorLevel int

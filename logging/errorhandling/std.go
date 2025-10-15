@@ -1,6 +1,6 @@
 package errorhandling
 
-import "github.com/Mr-Comand/logging/logging"
+import "github.com/Mr-Comand/goLogging/logging"
 
 func UpdateLogger(logger *logging.Logger) {
 	std.UpdateLogger(logger)

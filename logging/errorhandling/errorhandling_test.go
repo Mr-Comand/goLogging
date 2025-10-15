@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/Mr-Comand/logging/logging"
+	"github.com/Mr-Comand/goLogging/logging"
 )
 
 func TestNewCustomError(t *testing.T) {

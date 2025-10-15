@@ -3,7 +3,7 @@ package errorhandling
 import (
 	"slices"
 
-	"github.com/Mr-Comand/logging/logging"
+	"github.com/Mr-Comand/goLogging/logging"
 )
 
 var std *ErrorHandler = NewErrorHandler(logging.Default())

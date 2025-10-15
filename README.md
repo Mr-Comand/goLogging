@@ -15,7 +15,7 @@ A comprehensive, colored logging library for Go with advanced features including
 ## Installation
 
 ```bash
-go get github.com/Mr-Comand/logging
+go get github.com/Mr-Comand/goLogging
 ```
 
 ## Quick Start
@@ -24,7 +24,7 @@ go get github.com/Mr-Comand/logging
 package main
 
 import (
-    "github.com/Mr-Comand/logging"
+    "github.com/Mr-Comand/goLogging"
 )
 
 func main() {
@@ -85,7 +85,7 @@ logger.DisableTextModifier = true
 ### Error Handling
 
 ```go
-import "github.com/Mr-Comand/logging/logging/errorhandling"
+import "github.com/Mr-Comand/goLogging/logging/errorhandling"
 
 // Register error sources
 errorhandling.RegisterErrorSource(&errorhandling.ErrorSource{

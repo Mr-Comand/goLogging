@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/Mr-Comand/logging/logging"
+	"github.com/Mr-Comand/goLogging/logging"
 )
 
 func main() {

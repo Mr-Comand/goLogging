@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Mr-Comand/logging/logging"
+	"github.com/Mr-Comand/goLogging/logging"
 )
 
 type HtmlError struct {

@@ -1,3 +1,3 @@
-module github.com/Mr-Comand/logging
+module github.com/Mr-Comand/goLogging
 
 go 1.22.1
