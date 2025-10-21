@@ -1,15 +1,17 @@
-package logging
+package logging_test
 
 import (
 	"bytes"
 	"log"
 	"strings"
 	"testing"
+
+	"github.com/Mr-Comand/goLogging/logging"
 )
 
 func TestLoggerLevels(t *testing.T) {
 	var buf bytes.Buffer
-	logger := NewLogger(log.New(&buf, "", 0), INFO)
+	logger := logging.NewLogger(log.New(&buf, "", 0), logging.INFO)
 
 	// Test INFO level
 	logger.Info("test info")
@@ -26,24 +28,24 @@ func TestLoggerLevels(t *testing.T) {
 
 func TestLoggerSetLevel(t *testing.T) {
 	var buf bytes.Buffer
-	logger := NewLogger(log.New(&buf, "", 0), NONE)
+	logger := logging.NewLogger(log.New(&buf, "", 0), logging.NONE)
 
-	logger.SetLogLevel(DEBUG)
-	if logger.GetLogLevel() != DEBUG {
+	logger.SetLogLevel(logging.DEBUG)
+	if logger.GetLogLevel() != logging.DEBUG {
 		t.Errorf("Expected log level DEBUG, got %v", logger.GetLogLevel())
 	}
 
-	logger.SetLogLevel(INFO)
-	if logger.GetLogLevel() != INFO {
+	logger.SetLogLevel(logging.INFO)
+	if logger.GetLogLevel() != logging.INFO {
 		t.Errorf("Expected log level INFO, got %v", logger.GetLogLevel())
 	}
 }
 
 func TestSystemModuleLogger(t *testing.T) {
 	var buf bytes.Buffer
-	logger := NewLogger(log.New(&buf, "", 0), DEBUG)
+	logger := logging.NewLogger(log.New(&buf, "", 0), logging.DEBUG)
 
-	moduleLogger := logger.NewSystemModuleLogger("TestModule", Blue, Green)
+	moduleLogger := logger.NewSystemModuleLogger("TestModule", logging.Blue, logging.Green)
 	moduleLogger.Info("module test")
 
 	output := buf.String()
@@ -57,7 +59,7 @@ func TestSystemModuleLogger(t *testing.T) {
 
 func TestFormattedLogging(t *testing.T) {
 	var buf bytes.Buffer
-	logger := NewLogger(log.New(&buf, "", 0), INFO)
+	logger := logging.NewLogger(log.New(&buf, "", 0), logging.INFO)
 
 	logger.InfoF("User %s logged in", "Alice")
 	output := buf.String()
@@ -68,7 +70,7 @@ func TestFormattedLogging(t *testing.T) {
 
 func TestDisableTextModifier(t *testing.T) {
 	var buf bytes.Buffer
-	logger := NewLogger(log.New(&buf, "", 0), INFO)
+	logger := logging.NewLogger(log.New(&buf, "", 0), logging.INFO)
 	logger.DisableTextModifier = true
 
 	logger.Info("test message")
@@ -86,9 +88,4 @@ func TestDisableTextModifier(t *testing.T) {
 	if output != expected {
 		t.Errorf("Expected output %q, got %q", expected, output)
 	}
-}
-
-// Helper function to create a new logger for testing
-func NewLogger(logLogger *log.Logger, level LogLevel) *Logger {
-	return newLogger(logLogger, level)
 }

@@ -42,12 +42,12 @@ type Logger struct {
 	DisableTextModifier bool
 }
 
-var std *Logger = newLogger(log.Default(), INFO)
+var std *Logger = NewLogger(log.Default(), INFO)
 
 func Default() *Logger { return std }
 
 // New logger constructor
-func newLogger(logLogger *log.Logger, level LogLevel) *Logger {
+func NewLogger(logLogger *log.Logger, level LogLevel) *Logger {
 	return &Logger{
 		level:  level,
 		logger: logLogger,

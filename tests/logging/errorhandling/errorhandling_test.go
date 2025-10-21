@@ -1,24 +1,25 @@
-package errorhandling
+package errorhandling_test
 
 import (
 	"errors"
 	"testing"
 
 	"github.com/Mr-Comand/goLogging/logging"
+	"github.com/Mr-Comand/goLogging/logging/errorhandling"
 )
 
 func TestNewCustomError(t *testing.T) {
-	preset := CustomErrorPreset{
+	preset := errorhandling.CustomErrorPreset{
 		Code:        404,
 		UserMessage: "Not found",
 		DevMessage:  "Resource not found",
 		LogMessage:  "Resource not found in database",
-		Source:      &GenericErrorsSource,
-		Level:       ErrorMedium,
+		Source:      &errorhandling.GenericErrorsSource,
+		Level:       errorhandling.ErrorMedium,
 		HttpCode:    404,
 	}
 
-	customErr := NewCustomError(preset)
+	customErr := errorhandling.NewCustomError(preset)
 	if customErr.Code != 404 {
 		t.Errorf("Expected code 404, got %d", customErr.Code)
 	}
@@ -32,7 +33,7 @@ func TestNewCustomError(t *testing.T) {
 
 func TestErrorHandlerParse(t *testing.T) {
 	logger := logging.Default()
-	handler := NewErrorHandler(logger)
+	handler := errorhandling.NewErrorHandler(logger)
 
 	// Test parsing a standard error
 	stdErr := errors.New("standard error")
@@ -48,17 +49,17 @@ func TestErrorHandlerParse(t *testing.T) {
 
 func TestErrorHandlerRegisterSource(t *testing.T) {
 	logger := logging.Default()
-	handler := NewErrorHandler(logger)
+	handler := errorhandling.NewErrorHandler(logger)
 
-	source := &ErrorSource{
+	source := &errorhandling.ErrorSource{
 		Name: "TestSource",
-		ParseError: func(err error) *CustomError {
+		ParseError: func(err error) *errorhandling.CustomError {
 			if err.Error() == "test error" {
-				return &CustomError{
-					CustomErrorPreset: CustomErrorPreset{
+				return &errorhandling.CustomError{
+					CustomErrorPreset: errorhandling.CustomErrorPreset{
 						Code:       400,
 						LogMessage: "Parsed test error",
-						Source:     &GenericErrorsSource,
+						Source:     &errorhandling.GenericErrorsSource,
 					},
 					TraceId: "test-trace",
 				}
@@ -81,9 +82,9 @@ func TestErrorHandlerRegisterSource(t *testing.T) {
 }
 
 func TestCustomErrorIsFromPreset(t *testing.T) {
-	preset := CustomErrorPreset{
+	preset := errorhandling.CustomErrorPreset{
 		Code:   404,
-		Source: &GenericErrorsSource,
+		Source: &errorhandling.GenericErrorsSource,
 	}
 
 	customErr := preset.New()
@@ -92,9 +93,9 @@ func TestCustomErrorIsFromPreset(t *testing.T) {
 		t.Error("Expected error to be from preset")
 	}
 
-	differentPreset := CustomErrorPreset{
+	differentPreset := errorhandling.CustomErrorPreset{
 		Code:   500,
-		Source: &GenericErrorsSource,
+		Source: &errorhandling.GenericErrorsSource,
 	}
 
 	if customErr.IsFromPreset(&differentPreset) {
