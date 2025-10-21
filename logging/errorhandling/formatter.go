@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"reflect"
 
 	"github.com/Mr-Comand/goLogging/logging"
 )
@@ -35,7 +36,7 @@ func (e *CustomError) Log() *CustomError {
 		sml = e.Source.SML
 	} else {
 		sml = std.logger.GetSystemModule(e.Source.Name)
-		if sml == nil {
+		if sml == nil || reflect.ValueOf(sml).IsNil() {
 			sml = std.logger
 		}
 	}
