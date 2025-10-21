@@ -81,6 +81,10 @@ func (hand *ErrorHandler) Parse(err error) *CustomError {
 
 	// Otherwise, try all registered error sources
 	for _, errorSource := range hand.errorSources {
+		if errorSource.ParseError == nil {
+			hand.sml.DebugF("errorSource.ParseError of %s is nil-Pointer", errorSource.Name)
+			continue
+		}
 		if cError := errorSource.ParseError(err); cError != nil {
 			return cError
 		}
